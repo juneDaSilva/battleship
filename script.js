@@ -6,6 +6,7 @@ export const Ship = (length) => {
   const isSunk = () => sunk;
   const hit = () => {
     hits++;
+    console.log("Ship has been hit");
     if (hits == getLength()) {
       console.log("ship sunk");
       sunk = true;
@@ -14,8 +15,6 @@ export const Ship = (length) => {
 
   return { getLength, getHits, isSunk, hit };
 };
-
-export const add = (a, b) => a + b;
 
 const Player = (name, level) => {
   let health = level * 2;
@@ -42,6 +41,3 @@ const Player = (name, level) => {
   };
   return { attack, damage, getLevel, getName };
 };
-
-const mark = Player("Mark", 10);
-const fred = Player("Fred", 10);

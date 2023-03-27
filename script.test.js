@@ -17,12 +17,13 @@ it("Returns whether ship is sunk or not", () => {
 });
 
 it("Ship is sunk if hit amount of times of length", () => {
-  expect(guppy.isSunk()).toBe(false);
+  expect(guppy.isSunk()).toBe(false); // before hits ship should not be sunk
 
+  // run hits equal to length of ship
   let hits = 0;
   while (hits < guppy.getLength() - 1) {
     guppy.hit();
     hits++;
   }
-  expect(guppy.isSunk()).toBe(true);
+  expect(guppy.isSunk()).toBe(true); // Ship sunk after hits
 });
