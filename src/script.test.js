@@ -1,4 +1,4 @@
-import { Ship } from "./script";
+import { Ship } from "./apps/script";
 
 const guppy = Ship(4);
 

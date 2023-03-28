@@ -1,7 +1,6 @@
 import "./style.css";
-import Icon from "./01d.svg";
 
-import { printMe } from "./script";
+import { printMe } from "./apps/script";
 
 function component() {
   const element = document.createElement("div");
