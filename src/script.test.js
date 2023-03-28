@@ -1,6 +1,7 @@
-import test from "node:test";
 import { Ship } from "./script";
+
 const guppy = Ship(4);
+
 it("Returns correct length", () => {
   expect(guppy.getLength()).toBe(4);
 });
