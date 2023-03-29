@@ -15,7 +15,3 @@ export const Ship = (length) => {
 
   return { getLength, getHits, isSunk, hit };
 };
-
-export const printMe = () => {
-  console.log("I get called from script!");
-};
