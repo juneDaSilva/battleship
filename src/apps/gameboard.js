@@ -22,7 +22,7 @@ export class Gameboard {
   constructor() {
     this.board = createBoard();
   }
-  placeShip = (size, [col, row]) => {
+  placeShip = (size, [col, row], isHorizontal) => {
     // create ship
     let newShip = Ship(size);
 
@@ -30,10 +30,18 @@ export class Gameboard {
     // to also put ship on tiles following it
     // (assumed horizontal)
     let i = 0;
-    while (i < newShip.getLength()) {
-      let tile = findTile(this.board, [col + i, row]);
-      tile.ship = newShip;
-      i++;
+    if (isHorizontal) {
+      while (i < newShip.getLength()) {
+        let tile = findTile(this.board, [col + i, row]);
+        tile.ship = newShip;
+        i++;
+      }
+    } else {
+      while (i < newShip.getLength()) {
+        let tile = findTile(this.board, [col, row + i]);
+        tile.ship = newShip;
+        i++;
+      }
     }
   };
 
@@ -60,4 +68,5 @@ const findTile = (board, [a, b]) => {
 };
 
 let board = new Gameboard();
-board.placeShip(5, [0, 0]);
+let horizontal = true;
+board.placeShip(5, [0, 0], horizontal);
