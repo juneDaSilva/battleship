@@ -27,6 +27,12 @@ export class Gameboard {
     // create ship
     let newShip = Ship(size);
 
+    // Check if area occupied by other ship
+    if (isOccupied(this.board, newShip.getLength(), [col, row], isHorizontal)) {
+      console.log("Area occupied");
+      return "Area occupied";
+    }
+
     // put start of ship on coordinate tile and use ships length
     // to also put ship on tiles following it
     // (assumed horizontal)
@@ -60,7 +66,7 @@ export class Gameboard {
       if (tile.ship.isSunk()) {
         this.shipCount--;
         if (this.shipCount === 0) {
-          return "Game over";
+          return "Game over!";
         }
       }
       return "Hit taken!";
@@ -84,6 +90,25 @@ const findTile = (board, [a, b]) => {
       return tile;
     }
   }
+};
+
+const isOccupied = (board, length, [col, row], isHorizontal) => {
+  // check if ship is already there
+  let i = 0;
+  if (isHorizontal) {
+    while (i < length) {
+      let tile = findTile(board, [col + i, row]);
+      if (tile.ship) return true;
+      i++;
+    }
+  } else {
+    while (i < length) {
+      let tile = findTile(board, [col, row + i]);
+      if (tile.ship) return true;
+      i++;
+    }
+  }
+  return false;
 };
 
 let board = new Gameboard();

@@ -21,5 +21,5 @@ it("receiveAttack recognizes if spot has already been hit", () => {
 testBoard.placeShip(2, [1, 0], true);
 it("Game is over when all ships are sunk", () => {
   testBoard.receiveAttack(1, 0);
-  expect(testBoard.receiveAttack(2, 0)).toBe("Game over");
+  expect(testBoard.receiveAttack(2, 0)).toBe("Game over!");
 });
