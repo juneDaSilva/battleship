@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test-watch": "jest --watch *.js",
+    "watch": "jest --watch *.js",
     "start": "webpack --config webpack.dev.js --watch",
     "build": "webpack --config webpack.prod.js"
   },

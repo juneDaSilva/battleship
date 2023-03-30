@@ -21,6 +21,7 @@ export class Tile {
 export class Gameboard {
   constructor() {
     this.board = createBoard();
+    this.shipCount = 0;
   }
   placeShip = (size, [col, row], isHorizontal) => {
     // create ship
@@ -43,9 +44,28 @@ export class Gameboard {
         i++;
       }
     }
+    this.shipCount++;
   };
 
-  receiveAttack = (coordA, coordB) => {};
+  receiveAttack = (row, col) => {
+    let tile = findTile(this.board, [row, col]);
+    if (tile === undefined) return "Coordinates out of bounds";
+    if (tile.isHit()) return "Spot already hit!";
+    if (!tile.ship) {
+      tile.takeHit();
+      return "Shot missed!";
+    } else {
+      tile.takeHit();
+      tile.ship.hit();
+      if (tile.ship.isSunk()) {
+        this.shipCount--;
+        if (this.shipCount === 0) {
+          return "Game over";
+        }
+      }
+      return "Hit taken!";
+    }
+  };
 }
 
 const createBoard = () => {
@@ -55,7 +75,6 @@ const createBoard = () => {
       board.push(new Tile(col, row));
     }
   }
-
   return board;
 };
 
@@ -68,5 +87,5 @@ const findTile = (board, [a, b]) => {
 };
 
 let board = new Gameboard();
-let horizontal = true;
-board.placeShip(5, [0, 0], horizontal);
+
+board.receiveAttack(0, 0);
