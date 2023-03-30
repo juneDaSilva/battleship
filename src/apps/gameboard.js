@@ -26,6 +26,7 @@ export class Gameboard {
   placeShip = (size, [col, row], isHorizontal) => {
     // create ship
     let newShip = Ship(size);
+    console.log(size);
 
     // Check if area occupied by other ship
     if (isOccupied(this.board, newShip.getLength(), [col, row], isHorizontal)) {
@@ -45,7 +46,7 @@ export class Gameboard {
       }
     } else {
       while (i < newShip.getLength()) {
-        let tile = findTile(this.board, [col, row + i]);
+        let tile = findTile(this.board, [col, row - i]);
         tile.ship = newShip;
         i++;
       }
@@ -96,14 +97,16 @@ const isOccupied = (board, length, [col, row], isHorizontal) => {
   // check if ship is already there
   let i = 0;
   if (isHorizontal) {
+    // console.log("horizontal");
     while (i < length) {
       let tile = findTile(board, [col + i, row]);
       if (tile.ship) return true;
       i++;
     }
   } else {
+    // console.log("vertical");
     while (i < length) {
-      let tile = findTile(board, [col, row + i]);
+      let tile = findTile(board, [col, row - i]);
       if (tile.ship) return true;
       i++;
     }
