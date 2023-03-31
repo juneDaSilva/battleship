@@ -2,6 +2,8 @@
   --bg-color: #f8fafc;
   --main-letter-color: #000;
   --line-color: #0c4a6e;
+  --tile-hover-color: #7dd3fc;
+  --tile-missed-color: #0ea5e9;
 }
 
 html {
@@ -77,8 +79,18 @@ main {
 
 .tile {
   border: 1px solid var(--line-color);
+  background-color: #fff;
   flex: 1;
   margin: 2px;
+  transition: 0.2s;
+}
+
+.tile:hover {
+  background-color: var(--tile-hover-color);
+  border: 1px solid var(--tile-hover-color);
+  cursor: pointer;
+
+  transition: 0.2s;
 }
 
 footer {
