@@ -1,8 +1,90 @@
+:root {
+  --bg-color: #f8fafc;
+  --main-letter-color: #000;
+  --line-color: #0c4a6e;
+}
+
 html {
   font-family: "Orbitron", sans-serif;
 }
 
-.hello {
+body {
+  background-color: var(--bg-color);
+  color: var(--main-letter-color);
+
+  margin: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+main {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boards {
+  height: 80%;
+  width: 95%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.gameboard {
+  border: 2px dashed red;
+  padding: 10px;
+}
+
+.player {
+  margin: 0px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  margin: 20px;
+  margin-top: 10px;
+
+  height: 400px;
+  width: 400px;
+}
+
+.row {
+  height: 10%;
+
+  display: flex;
+}
+
+.tile {
+  border: 1px solid var(--line-color);
+  flex: 1;
+  margin: 2px;
+}
+
+footer {
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

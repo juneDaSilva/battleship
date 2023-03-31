@@ -2,17 +2,24 @@ import { Gameboard } from "./gameboard";
 
 export const Player = (name) => {
   let board = new Gameboard();
-  let age = 32;
 
   // Create fleet of ships
   createFleet(board);
-  // board.placeShip(5, [0, 0], true);
 
-  // Player can attack other players board
+  // Send hit function
+  const sendHit = (enemy, [col, row]) => {
+    return enemy.takeHit([col, row]);
+  };
 
-  return { age, board };
+  // Take hit function
+  const takeHit = ([col, row]) => {
+    return board.receiveAttack(col, row);
+  };
+
+  return { sendHit, takeHit };
 };
 
+// Hardcoded Fleet for now
 const createFleet = (board) => {
   let coordinates = [
     [0, 0],
@@ -29,6 +36,20 @@ const createFleet = (board) => {
   }
 };
 
-let june = Player("June");
+const moveAI = (player, enemy) => {
+  // keep trying for coordinates until they come back legal
+  let moveNotLegal = true;
+  while (moveNotLegal) {
+    let move = [getRandomInt(9), getRandomInt(9)];
+    if (player.sendHit(enemy, move) !== "Not legal") {
+      moveNotLegal = false;
+    }
+  }
+};
 
-console.log(june);
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
+
+let june = Player("June");
+let fred = Player("freddy");

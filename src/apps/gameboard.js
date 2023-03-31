@@ -26,7 +26,6 @@ export class Gameboard {
   placeShip = (size, [col, row], isHorizontal) => {
     // create ship
     let newShip = Ship(size);
-    console.log(size);
 
     // Check if area occupied by other ship
     if (isOccupied(this.board, newShip.getLength(), [col, row], isHorizontal)) {
@@ -54,12 +53,19 @@ export class Gameboard {
     this.shipCount++;
   };
 
-  receiveAttack = (row, col) => {
-    let tile = findTile(this.board, [row, col]);
-    if (tile === undefined) return "Coordinates out of bounds";
-    if (tile.isHit()) return "Spot already hit!";
+  receiveAttack = (col, row) => {
+    let tile = findTile(this.board, [col, row]);
+    if (tile === undefined) {
+      console.log("Out of bounds");
+      return "Not legal";
+    }
+    if (tile.isHit()) {
+      console.log("Already hit");
+      return "Not legal";
+    }
     if (!tile.ship) {
       tile.takeHit();
+      console.log("Shot missed!");
       return "Shot missed!";
     } else {
       tile.takeHit();
@@ -70,6 +76,7 @@ export class Gameboard {
           return "Game over!";
         }
       }
+
       return "Hit taken!";
     }
   };
@@ -115,5 +122,3 @@ const isOccupied = (board, length, [col, row], isHorizontal) => {
 };
 
 let board = new Gameboard();
-
-board.receiveAttack(0, 0);

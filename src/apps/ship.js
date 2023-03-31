@@ -8,7 +8,7 @@ export const Ship = (length) => {
     hits++;
     console.log("Ship has been hit");
     if (hits == getLength()) {
-      console.log("ship sunk");
+      console.log("Ship sunk!!!");
       sunk = true;
     }
   };
