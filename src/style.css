@@ -2,9 +2,9 @@
   --bg-color: #f8fafc;
   --main-letter-color: #000;
   --line-color: #0c4a6e;
-  --tile-hover-color: #7dd3fc;
-  --tile-missed-color: #0ea5e9;
-  --tile-hit-color: #ef4444;
+  --tile-hover-color: #25dbf7c7;
+  --tile-missed-color: #7dd3fc;
+  --tile-hit-color: #ff5454cb;
 }
 
 html {

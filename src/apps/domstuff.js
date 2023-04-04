@@ -1,7 +1,7 @@
 import { Player, moveAI, botMoving, changeTurn } from "./player";
 let winner = document.getElementById("winner");
 
-let player1 = Player("Player 1");
+let player1 = Player("You");
 let computer = Player("Computer");
 
 export const renderPage = () => {
@@ -78,7 +78,9 @@ const takeTurn = (e) => {
 
 const declareWinner = (player) => {
   winner.classList.add("declared");
-  winner.innerHTML = `${player.getName()} has won this round!`;
+  player.getName() === "Computer"
+    ? (winner.innerHTML = `${player.getName()}  wins this round!`)
+    : (winner.innerHTML = `${player.getName()}  win this round!`);
 };
 
 const stopAndListen = (player) => {
