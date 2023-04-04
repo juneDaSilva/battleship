@@ -1,26 +1,51 @@
+import { renderPage } from "./domstuff";
 import { Gameboard } from "./gameboard";
+export let botMoving = false;
+let winner = document.getElementById("winner");
 
 export const Player = (name) => {
   let board = new Gameboard();
 
   // Create fleet of ships
-  createFleet(board);
+  createFleet(name, board);
 
   // Send hit function
   const sendHit = (enemy, [col, row]) => {
-    return enemy.takeHit([col, row]);
+    return enemy.takeHit(name, [col, row]);
   };
 
   // Take hit function
-  const takeHit = ([col, row]) => {
-    return board.receiveAttack(col, row);
+  const takeHit = (enemy, [col, row]) => {
+    let response = board.receiveAttack(enemy, col, row);
+    // logResponse(response, name, enemy);
+    return response;
   };
 
-  return { sendHit, takeHit };
+  const endGame = () => {
+    renderPage();
+  };
+
+  const getName = () => {
+    return name;
+  };
+
+  const restart = () => {
+    board = new Gameboard();
+    createFleet(name, board);
+  };
+
+  return { sendHit, takeHit, getName, endGame, restart };
+};
+
+const logResponse = (response, player, enemy) => {
+  // console.log(enemy);
+  if (response === "Hit taken!") {
+    console.log(`${enemy} has hit ${player} `);
+  }
 };
 
 // Hardcoded Fleet for now
-const createFleet = (board) => {
+const createFleet = (name, board) => {
   let coordinates = [
     [0, 0],
     [9, 9],
@@ -36,20 +61,25 @@ const createFleet = (board) => {
   }
 };
 
-const moveAI = (player, enemy) => {
+export const moveAI = (player, enemy) => {
   // keep trying for coordinates until they come back legal
   let moveNotLegal = true;
   while (moveNotLegal) {
-    let move = [getRandomInt(9), getRandomInt(9)];
-    if (player.sendHit(enemy, move) !== "Not legal") {
+    let move = [getRandomInt(10), getRandomInt(10)];
+    let response = player.sendHit(enemy, move);
+    if (response !== "not legal") {
       moveNotLegal = false;
+      // UPDATE FRIENDLY BOARD WITH COMPUTER'S MOVE
+      let tile = document.getElementById(move);
+      return { tile, response };
     }
   }
+};
+
+export const changeTurn = () => {
+  botMoving = !botMoving;
 };
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
-
-let june = Player("June");
-let fred = Player("freddy");

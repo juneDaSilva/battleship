@@ -1,3 +1,4 @@
+import { renderPage } from "./domstuff";
 import { Ship } from "./ship";
 
 export class Tile {
@@ -35,7 +36,6 @@ export class Gameboard {
 
     // put start of ship on coordinate tile and use ships length
     // to also put ship on tiles following it
-    // (assumed horizontal)
     let i = 0;
     if (isHorizontal) {
       while (i < newShip.getLength()) {
@@ -53,31 +53,30 @@ export class Gameboard {
     this.shipCount++;
   };
 
-  receiveAttack = (col, row) => {
+  receiveAttack = (enemy, col, row) => {
     let tile = findTile(this.board, [col, row]);
     if (tile === undefined) {
-      console.log("Out of bounds");
-      return "Not legal";
+      // console.log("Out of bounds");
+      return "not legal";
     }
     if (tile.isHit()) {
-      console.log("Already hit");
-      return "Not legal";
+      // console.log("Already hit");
+      return "not legal";
     }
     if (!tile.ship) {
       tile.takeHit();
       console.log("Shot missed!");
-      return "Shot missed!";
+      return "shot missed";
     } else {
       tile.takeHit();
       tile.ship.hit();
       if (tile.ship.isSunk()) {
         this.shipCount--;
         if (this.shipCount === 0) {
-          return "Game over!";
+          return "game over";
         }
       }
-
-      return "Hit taken!";
+      return `hit taken!`;
     }
   };
 }
@@ -92,9 +91,9 @@ const createBoard = () => {
   return board;
 };
 
-const findTile = (board, [a, b]) => {
+export const findTile = (board, [col, row]) => {
   for (let tile of board) {
-    if (tile.coordinate[0] == a && tile.coordinate[1] == b) {
+    if (tile.coordinate[0] == col && tile.coordinate[1] == row) {
       return tile;
     }
   }
@@ -120,5 +119,3 @@ const isOccupied = (board, length, [col, row], isHorizontal) => {
   }
   return false;
 };
-
-let board = new Gameboard();

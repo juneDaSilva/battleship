@@ -4,6 +4,7 @@
   --line-color: #0c4a6e;
   --tile-hover-color: #7dd3fc;
   --tile-missed-color: #0ea5e9;
+  --tile-hit-color: #ef4444;
 }
 
 html {
@@ -22,6 +23,7 @@ body {
 
 header {
   height: 3rem;
+  margin-bottom: 10px;
 
   display: flex;
   justify-content: center;
@@ -37,12 +39,35 @@ main {
   flex: 1;
 
   display: flex;
+  flex-direction: column;
+
   justify-content: center;
   align-items: center;
 }
 
+.winner-wrap {
+  flex: 0.5;
+  margin-bottom: 20px;
+  width: clamp(300px, 40%, 600px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#winner {
+  border: 1px solid black;
+  padding: 20px 70px;
+  text-align: center;
+}
+
+.declared {
+  background-color: #000;
+  color: white;
+}
+
 .boards {
-  height: 80%;
+  flex: 6;
   width: 95%;
 
   display: flex;
@@ -51,13 +76,10 @@ main {
 }
 
 .gameboard {
-  border: 2px dashed red;
   padding: 10px;
 }
 
 .player {
-  margin: 0px 20px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,8 +89,8 @@ main {
   margin: 20px;
   margin-top: 10px;
 
-  height: 400px;
-  width: 400px;
+  height: 20em;
+  width: 20em;
 }
 
 .row {
@@ -93,10 +115,51 @@ main {
   transition: 0.2s;
 }
 
+.missed {
+  background-color: var(--tile-missed-color);
+  border: 1px solid var(--tile-missed-color);
+}
+
+.missed:hover {
+  background-color: var(--tile-missed-color);
+  border: 1px solid var(--tile-missed-color);
+
+  transition: 0.2s;
+}
+
+.hit {
+  background-color: var(--tile-hit-color);
+  border: 1px solid var(--tile-hit-color);
+
+  transition: 0.2s;
+}
+
+.hit:hover {
+  background-color: var(--tile-hit-color);
+  border: 1px solid var(--tile-hit-color);
+
+  transition: 0.2s;
+}
+
 footer {
   height: 3rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 750px) {
+  #winner {
+    padding: 20px 30px;
+  }
+
+  .boards {
+    flex-direction: column;
+  }
+
+  .board {
+    height: 15em;
+    width: 15em;
+  }
 }
