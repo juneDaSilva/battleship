@@ -1,4 +1,4 @@
 import "./style.css";
-import { renderPage } from "./apps/domstuff";
+import { renderPage, createBoards } from "./apps/domstuff";
 
-renderPage();
+createBoards();

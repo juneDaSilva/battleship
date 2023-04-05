@@ -141,6 +141,11 @@ main {
   transition: 0.2s;
 }
 
+.friendlyShip {
+  background-color: #515151b3;
+  border: 1px solid #515151b3;
+}
+
 footer {
   height: 3rem;
 

@@ -1,3 +1,4 @@
+import { findTile } from "./gameboard";
 import { Player, moveAI, botMoving, changeTurn } from "./player";
 let winner = document.getElementById("winner");
 
@@ -16,11 +17,12 @@ export const createBoards = () => {
   const friendlyBoard = document.querySelector(".friendly.board");
   const enemyBoard = document.querySelector(".enemy.board");
 
-  renderBoard(player1, computer, friendlyBoard);
-  renderBoard(computer, player1, enemyBoard);
+  renderBoard(player1, friendlyBoard);
+  renderBoard(computer, enemyBoard);
 };
 
-const renderBoard = (player, enemy, board) => {
+const renderBoard = (player, board) => {
+  let playerBoard = player.getBoard().board;
   board.innerHTML = "";
 
   for (let r = 9; r >= 0; r--) {
@@ -38,6 +40,9 @@ const renderBoard = (player, enemy, board) => {
         tile.onclick = takeTurn;
       } else {
         tile.id = [col, r];
+        let cell = findTile(playerBoard, [col, r]);
+        // shade in friendly ship positions
+        if (cell.ship) tile.classList.add("friendlyShip");
       }
       row.append(tile);
     }
@@ -48,7 +53,6 @@ const renderBoard = (player, enemy, board) => {
 
 const takeTurn = (e) => {
   let values = [e.target.dataset.value[0], e.target.dataset.value[2]];
-
   if (!botMoving) {
     let response = computer.takeHit(player1.getName(), values);
     if (response !== "not legal") {
@@ -76,6 +80,7 @@ const takeTurn = (e) => {
   }
 };
 
+//display winner message
 const declareWinner = (player) => {
   winner.classList.add("declared");
   player.getName() === "Computer"
@@ -83,20 +88,23 @@ const declareWinner = (player) => {
     : (winner.innerHTML = `${player.getName()}  win this round!`);
 };
 
+// On game won, board restarts game onclick
 const stopAndListen = (player) => {
   let gameDone = document.querySelector("main");
   gameDone.addEventListener(
     "click",
     () => {
-      player.endGame();
+      renderPage();
     },
     { once: true }
   );
 };
 
-// TODO: UPDATE TILE COLORS AS THEYRE BEING HIT
+// Update tile colors once clicked
 const updateTileColor = (tile, response) => {
   if (response === "shot missed") tile.classList.add("missed");
-  if (response === "hit taken!" || response === "game over")
+  if (response === "hit taken!" || response === "game over") {
+    tile.classList.remove("friendlyShip");
     tile.classList.add("hit");
+  }
 };

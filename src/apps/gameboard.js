@@ -1,4 +1,4 @@
-import { renderPage } from "./domstuff";
+// import { renderPage } from "./domstuff";
 import { Ship } from "./ship";
 
 export class Tile {
@@ -103,17 +103,20 @@ const isOccupied = (board, length, [col, row], isHorizontal) => {
   // check if ship is already there
   let i = 0;
   if (isHorizontal) {
-    // console.log("horizontal");
     while (i < length) {
       let tile = findTile(board, [col + i, row]);
-      if (tile.ship) return true;
+      if (tile === undefined) return true; // check if it overflows out of board
+      if (tile.ship) return true; // check if ship already there
+
       i++;
     }
   } else {
     // console.log("vertical");
     while (i < length) {
       let tile = findTile(board, [col, row - i]);
+      if (tile === undefined) return true;
       if (tile.ship) return true;
+
       i++;
     }
   }
