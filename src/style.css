@@ -5,6 +5,7 @@
   --tile-hover-color: #25dbf7c7;
   --tile-missed-color: #7dd3fc;
   --tile-hit-color: #ff5454cb;
+  --friendly-ship-color: #515151b3;
 }
 
 html {
@@ -28,6 +29,65 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.place-wrap {
+  border: 2px solid black;
+  border-radius: 20px;
+  flex: 1;
+  width: 30rem;
+  margin: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.place {
+  border: 1px solid var(--line-color);
+  background-color: #fff;
+  flex: 1;
+  margin: 2px;
+  transition: 0.2s;
+}
+
+.place:hover {
+  border: 1px solid var(--friendly-ship-color);
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+#placed {
+  background-color: var(--friendly-ship-color);
+  border: 1px solid var(--friendly-ship-color);
+}
+
+.rotate {
+  border: 1px solid black;
+  padding: 5px 20px;
+  background-color: #000;
+  color: #fff;
+
+  transition: 0.3s;
+}
+
+.rotate:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.rotate:active {
+  transform: scale(1);
+  transition: 0.1s;
 }
 
 h2 {
@@ -142,8 +202,8 @@ main {
 }
 
 .friendlyShip {
-  background-color: #515151b3;
-  border: 1px solid #515151b3;
+  background-color: var(--friendly-ship-color);
+  border: 1px solid var(--friendly-ship-color);
 }
 
 footer {
@@ -155,6 +215,10 @@ footer {
 }
 
 @media only screen and (max-width: 750px) {
+  .place-wrap {
+    width: 90%;
+  }
+
   #winner {
     padding: 20px 30px;
   }

@@ -23,15 +23,19 @@ export class Gameboard {
   constructor() {
     this.board = createBoard();
     this.shipCount = 0;
+    this.maxFleetSize = 5;
   }
   placeShip = (size, [col, row], isHorizontal) => {
+    if (this.shipCount == this.maxFleetSize) return;
+    col = parseInt(col);
+    row = parseInt(row);
     // create ship
     let newShip = Ship(size);
 
     // Check if area occupied by other ship
     if (isOccupied(this.board, newShip.getLength(), [col, row], isHorizontal)) {
       console.log("Area occupied");
-      return "Area occupied";
+      return "area occupied";
     }
 
     // put start of ship on coordinate tile and use ships length
@@ -100,11 +104,11 @@ export const findTile = (board, [col, row]) => {
 };
 
 const isOccupied = (board, length, [col, row], isHorizontal) => {
-  // check if ship is already there
   let i = 0;
   if (isHorizontal) {
     while (i < length) {
       let tile = findTile(board, [col + i, row]);
+
       if (tile === undefined) return true; // check if it overflows out of board
       if (tile.ship) return true; // check if ship already there
 

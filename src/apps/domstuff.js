@@ -1,19 +1,21 @@
 import { findTile } from "./gameboard";
-import { Player, moveAI, botMoving, changeTurn } from "./player";
-let winner = document.getElementById("winner");
+import { Player, moveAI, botMoving, changeTurn, createFleet } from "./player";
+import { renderMain } from "./renderGame";
+import { player1 } from "..";
+import { renderPlacer } from "./placeShips";
 
-let player1 = Player("You");
+// let player1 = Player("You");
 let computer = Player("Computer");
 
 export const renderPage = () => {
-  player1.restart();
   computer.restart();
+
   createBoards();
-  winner.classList.remove("declared");
-  winner.innerHTML = "God speed, Captain";
 };
 
 export const createBoards = () => {
+  renderMain();
+  createFleet(computer.getBoard());
   const friendlyBoard = document.querySelector(".friendly.board");
   const enemyBoard = document.querySelector(".enemy.board");
 
@@ -82,6 +84,7 @@ const takeTurn = (e) => {
 
 //display winner message
 const declareWinner = (player) => {
+  let winner = document.getElementById("winner");
   winner.classList.add("declared");
   player.getName() === "Computer"
     ? (winner.innerHTML = `${player.getName()}  wins this round!`)
@@ -94,7 +97,8 @@ const stopAndListen = (player) => {
   gameDone.addEventListener(
     "click",
     () => {
-      renderPage();
+      renderPlacer();
+      return;
     },
     { once: true }
   );

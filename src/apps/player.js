@@ -1,13 +1,9 @@
 import { renderPage } from "./domstuff";
 import { Gameboard } from "./gameboard";
 export let botMoving = false;
-let winner = document.getElementById("winner");
 
 export const Player = (name) => {
   let board = new Gameboard();
-
-  // Create fleet of ships
-  createFleet(board);
 
   // Send hit function
   const sendHit = (enemy, [col, row]) => {
@@ -17,7 +13,6 @@ export const Player = (name) => {
   // Take hit function
   const takeHit = (enemy, [col, row]) => {
     let response = board.receiveAttack(enemy, col, row);
-    // logResponse(response, name, enemy);
     return response;
   };
 
@@ -35,25 +30,13 @@ export const Player = (name) => {
 
   const restart = () => {
     board = new Gameboard();
-    // createFleet(board);
   };
 
   return { sendHit, takeHit, getName, endGame, restart, getBoard };
 };
 
-// Create function that gets info from user and creates ships
-// *-*-* --------- NOT IN USE YET -------- *-*-*
-const createShips = () => {
-  let coordinates = [];
-  let orientation = [];
-  let sizes = [5, 4, 3, 3, 2];
-
-  for (let i in sizes) {
-  }
-};
-
 // Hardcoded Fleet for now
-const createFleet = (board) => {
+export const createFleet = (board) => {
   let coordinates = [
     [0, 0],
     [9, 9],
