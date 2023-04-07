@@ -214,6 +214,31 @@ footer {
   align-items: center;
 }
 
+.footer-par {
+  letter-spacing: 2px;
+}
+
+.logos {
+  margin: 0px 5px;
+}
+
+.logos:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
+}
+
+#githubLogo {
+  content: url("./images/github.png");
+}
+
+#youtubeLogo {
+  content: url("./images/youtube.svg");
+}
+
+#tiktokLogo {
+  content: url("./images/tiktok.svg");
+}
+
 @media only screen and (max-width: 750px) {
   .place-wrap {
     width: 90%;
